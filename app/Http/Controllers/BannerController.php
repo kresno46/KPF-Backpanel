@@ -36,9 +36,12 @@ class BannerController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'image' => 'required|image|mimes:jpeg,png,jpg|max:20480',
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:5120',
             'order' => 'nullable|integer|min:1',
             'is_active' => 'required|boolean',
+        ], [
+            'image.max' => 'Ukuran gambar tidak boleh melebihi 5MB',
+            'image.mimes' => 'Format gambar harus jpeg, png, atau jpg',
         ]);
 
         try {
@@ -107,9 +110,12 @@ class BannerController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            'order' => 'nullable|integer|min:1',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:5120',
+            'order' => 'required|integer|min:1',
             'is_active' => 'required|boolean',
+        ], [
+            'image.max' => 'Ukuran gambar tidak boleh melebihi 5MB',
+            'image.mimes' => 'Format gambar harus jpeg, png, atau jpg',
         ]);
 
         try {

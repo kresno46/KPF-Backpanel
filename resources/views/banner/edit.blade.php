@@ -68,7 +68,7 @@
                                     </span>
                                 @enderror
                             </div>
-                            <small class="form-text text-muted">Ukuran rekomendasi: 1920x600px, format: JPG/PNG, maks: 2MB</small>
+                            <small class="form-text text-muted">Ukuran rekomendasi: 1920x600px, format: JPG/PNG, maks: 5MB</small>
                             <div class="mt-2">
                                 @if($banner->image && Storage::disk('public')->exists($banner->image))
                                     <img id="image-preview" src="{{ asset('storage/' . $banner->image) }}" alt="Preview Gambar" style="max-width: 100%; max-height: 200px;">

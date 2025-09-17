@@ -67,7 +67,7 @@
                                     </span>
                                 @enderror
                             </div>
-                            <small class="form-text text-muted">Ukuran rekomendasi: 1920x600px, format: JPG/PNG, maks: 2MB</small>
+                            <small class="form-text text-muted">Ukuran rekomendasi: 1920x600px, format: JPG/PNG, maks: 5MB</small>
                             <div class="mt-2">
                                 <img id="image-preview" src="#" alt="Preview Gambar" style="max-width: 100%; max-height: 200px; display: none;">
                             </div>
