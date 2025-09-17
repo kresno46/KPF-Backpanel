@@ -68,12 +68,12 @@
                             <i class="fas fa-sign-in-alt me-2"></i>Masuk
                         </button>
                         
-                        <p class="text-center mt-2 small mb-0">
+                        {{-- <p class="text-center mt-2 small mb-0">
                             Belum punya akun? 
                             <a href="{{ route('register') }}" class="text-primary text-decoration-none fw-medium">
                                 Daftar di sini
                             </a>
-                        </p>
+                        </p> --}}
                     </div>
                 </form>
 
