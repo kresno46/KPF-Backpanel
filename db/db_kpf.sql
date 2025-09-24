@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Sep 24, 2025 at 09:49 AM
+-- Generation Time: Sep 24, 2025 at 10:01 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.3.13
 
@@ -312,8 +312,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `last_name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Faturrahman', 'Putra', 'faturrahman86.fr@gmail.com', NULL, '$2y$12$mpJzNXGRljkc6S2T5Y7D/ux.3BIM8/7bWGQvb8Hn.3HAgWJQv/Oiq', '6XLD9gXvNqkXgGsQ8FpczOvh8r5iJ3v5bbD5kXDYoXv2V97mwLB2CpxgdtEA', NULL, '2025-07-23 05:43:43'),
-(2, 'Ranca', 'Pramuditha', 'ranca632@gmail.com', NULL, '$2y$12$pbw4VguXUjZtHwsAeDiWUufVZAZ.YqbusL.ibI/bSG3oNi1kfIXYu', 'A56tbsisWa9D80wiLFqGyTISBWbDuL7JVd2n9Jn6IzO3wCF7IpcY7YU5qYqD', '2025-07-23 06:08:06', '2025-07-23 08:28:46');
+(3, 'admin', 'admin', 'adminkpf@gmail.com', NULL, '$2y$12$i7KlF7Iq2Vx7UsraNt3PkudhyxlW6ObvS2/CUcmurJgoq/qxYRTrm', NULL, '2025-09-24 09:51:40', '2025-09-24 09:51:40');
 
 -- --------------------------------------------------------
 
@@ -512,7 +511,7 @@ ALTER TABLE `spas`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `wakil_pialangs`
