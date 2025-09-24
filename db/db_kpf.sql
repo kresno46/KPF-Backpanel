@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jul 08, 2025 at 03:55 AM
+-- Generation Time: Sep 24, 2025 at 09:49 AM
 -- Server version: 8.0.30
--- PHP Version: 8.4.3
+-- PHP Version: 8.3.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,8 +18,33 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `db_rfb`
+-- Database: `db_kpf`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `banners`
+--
+
+CREATE TABLE `banners` (
+  `id` bigint UNSIGNED NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `image` varchar(255) NOT NULL,
+  `order` int NOT NULL DEFAULT '0',
+  `is_active` tinyint(1) NOT NULL DEFAULT '1',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `banners`
+--
+
+INSERT INTO `banners` (`id`, `title`, `description`, `image`, `order`, `is_active`, `created_at`, `updated_at`) VALUES
+(18, 'Layanan Terbaik', 'Kami akan selalu memberikan layanan terbaik bagi seluruh calon nasabah dan nasabah terutama dalam\r\nhal kemudahan bertransaksi real account maupun demo account didukung oleh SDM berkualitas\r\nyang telah resmi menjadi wakil pialang berjangka melalui fit dan proper test dari Bappebti', 'banners/OYkg6tVC0p23tZib0Snux2jStj9Ey0DsEcSZUZfk.png', 1, 1, '2025-07-29 06:17:24', '2025-08-08 07:07:11'),
+(22, 'testing', 'testing', 'banners/spw1pZEt4CrJG61YTJhq6Bgtbqpn5H7IkI8FMkLZ.png', 2, 1, '2025-08-08 07:06:23', '2025-08-08 07:07:11');
 
 -- --------------------------------------------------------
 
@@ -37,14 +62,14 @@ CREATE TABLE `beritas` (
   `isi` text NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `beritas`
 --
 
 INSERT INTO `beritas` (`id`, `image`, `kategori`, `status`, `judul`, `slug`, `isi`, `created_at`, `updated_at`) VALUES
-(1, '2025-07-07-21-17-38-pt-rifan-financindo-berjangka-catat-pertumbuhan-positif-dan-perkuat-komitmen-edukasi-keuangan.jpg', 'Info & Kegiatan', 'published', 'PT Rifan Financindo Berjangka Catat Pertumbuhan Positif dan Perkuat Komitmen Edukasi Keuangan', 'pt-rifan-financindo-berjangka-catat-pertumbuhan-positif-dan-perkuat-komitmen-edukasi-keuangan', '<p data-start=\"369\" data-end=\"758\"><strong data-start=\"392\" data-end=\"425\">PT Rifan Financindo Berjangka</strong> kembali mencatatkan kinerja positif di semester pertama tahun 2025, menunjukkan ketahanan dan adaptasi perusahaan di tengah dinamika pasar global. Peningkatan volume transaksi dan bertambahnya jumlah nasabah menjadi indikator keberhasilan strategi perusahaan dalam memperluas jangkauan layanan serta meningkatkan kualitas pelayanan.</p>\r\n<p data-start=\"760\" data-end=\"1311\">Direktur Utama PT Rifan Financindo Berjangka, Bapak [Nama Direktur], menyampaikan bahwa capaian ini merupakan hasil dari komitmen kuat perusahaan untuk terus berinovasi dan memberikan edukasi keuangan kepada masyarakat. &ldquo;Kami percaya bahwa literasi keuangan adalah kunci untuk menciptakan investor yang cerdas dan mandiri. Oleh karena itu, selain memperkuat layanan digital dan memperluas produk, kami juga aktif menggelar berbagai seminar, pelatihan, dan edukasi online guna meningkatkan pemahaman masyarakat terhadap perdagangan berjangka,&rdquo; ujarnya.</p>\r\n<p data-start=\"1313\" data-end=\"1645\">Sepanjang semester pertama, PT Rifan Financindo Berjangka telah menyelenggarakan lebih dari 50 kegiatan edukasi di berbagai kota besar di Indonesia, dengan total peserta mencapai lebih dari 5.000 orang. Topik yang dibahas mencakup dasar-dasar investasi, manajemen risiko, hingga strategi perdagangan yang aman dan bertanggung jawab.</p>\r\n<p data-start=\"1647\" data-end=\"1908\">Tak hanya fokus pada peningkatan bisnis, perusahaan juga berkomitmen untuk terus mendukung program Tanggung Jawab Sosial (CSR) yang berfokus pada pendidikan dan lingkungan, sejalan dengan visi perusahaan untuk memberikan kontribusi positif bagi masyarakat luas.</p>\r\n<p data-start=\"1910\" data-end=\"2146\">Dengan pencapaian yang terus meningkat, PT Rifan Financindo Berjangka optimis dapat mempertahankan momentum pertumbuhan hingga akhir tahun 2025, sekaligus memperkokoh posisinya sebagai salah satu pialang berjangka terdepan di Indonesia.</p>', '2025-07-07 14:17:38', '2025-07-07 14:32:09');
+(4, '2025-08-07-09-09-42-real-time-online-trading.png', 'Info & Kegiatan', 'published', 'Real Time Online Trading', 'real-time-online-trading', '<p>Bergabunglah dan cobalah alat perdagangan online kami di manapun Anda berada.<br>Hubungi marketing kami untuk memulai panduan yang tepat tentang online trading kami.</p>', '2025-08-07 01:55:31', '2025-08-07 02:09:42');
 
 -- --------------------------------------------------------
 
@@ -56,7 +81,7 @@ CREATE TABLE `cache` (
   `key` varchar(255) NOT NULL,
   `value` mediumtext NOT NULL,
   `expiration` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -68,7 +93,7 @@ CREATE TABLE `cache_locks` (
   `key` varchar(255) NOT NULL,
   `owner` varchar(255) NOT NULL,
   `expiration` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -84,7 +109,7 @@ CREATE TABLE `failed_jobs` (
   `payload` longtext NOT NULL,
   `exception` longtext NOT NULL,
   `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -101,14 +126,15 @@ CREATE TABLE `jfxes` (
   `specs` text NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `jfxes`
 --
 
 INSERT INTO `jfxes` (`id`, `image`, `name`, `slug`, `deskripsi`, `specs`, `created_at`, `updated_at`) VALUES
-(1, 'jfx/07072025-mengenal-minyak-sawit-merah-dan-manfaatnya-bagi-tubuh-tingkatkan-kesehatan-otak.jpg', 'Kontrak Berjangka Olein (OLE)', 'kontrak-berjangka-olein-ole', 'Kontrak Berjangka Olein (OLE) adalah produk perdagangan berjangka berbasis komoditas minyak kelapa sawit olahan (RBD Olein) yang diperdagangkan di Bursa Berjangka Jakarta (JFX). Produk ini memberikan kesempatan kepada investor untuk memperoleh keuntungan dari pergerakan harga komoditas sekaligus berfungsi sebagai sarana lindung nilai (hedging) terhadap volatilitas harga pasar. Dengan tingkat likuiditas yang baik dan transparansi harga, Kontrak Berjangka Olein menjadi salah satu pilihan investasi menarik di sektor komoditas, khususnya bagi para pelaku pasar yang ingin memanfaatkan potensi pasar minyak sawit yang terus berkembang.', '<p><strong>Spesifikasi Kontrak Berjangka Olein</strong></p>\r\n<div align=\"center\">\r\n<p>&nbsp;</p>\r\n<table border=\"1\" cellspacing=\"0\" cellpadding=\"0\">\r\n<tbody>\r\n<tr>\r\n<td>\r\n<p><strong>Kode Kontrak</strong></p>\r\n</td>\r\n<td>\r\n<p>OLE</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<p><strong>Dasar Kontrak</strong></p>\r\n</td>\r\n<td>\r\n<p>Olein dengan kualitas Standar Pasar</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<p><strong>Satuan Kontrak</strong></p>\r\n</td>\r\n<td>\r\n<p>20 ton (20.000 Kg)</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<p><strong>Bulan Kontrak</strong></p>\r\n</td>\r\n<td>\r\n<p>6 (enam) bulan berturut-turut, sehingga setiap hari perdagangan terdapat enam Bulan Kontrak</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<p><strong>Hari &amp; Jam Perdagangan</strong></p>\r\n</td>\r\n<td>\r\n<p>Setiap hari perdagangan</p>\r\n<p>Pukul 09.30 &ndash; 17.30 wib</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<p><strong>Pasca Penutupan</strong></p>\r\n</td>\r\n<td>\r\n<p>Sesi Pasca Penutupan dilaksanakan setiap hari perdagangan, yaitu mulai pukul 17.45 WIB sampai dengan 18.00 WIB.</p>\r\n<p>Amanat beli dan jual yang dimasukkan ke dalam JAFeTS adalah pada Harga Penyelesaian hari itu.</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<p><strong>Tukar Fisik dengan Berjangka</strong></p>\r\n</td>\r\n<td>\r\n<p>Pihak-pihak yang melakukan transaksi jual/beli Olein, PPO lainnya dan CPO diluar bursa dapat mendaftarkannya ke Bursa untuk ditukar dengan transaksi berjangka bagi kedua belah pihak.</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<p><strong>Hari Perdagangan Terakhir</strong></p>\r\n</td>\r\n<td>\r\n<p>Perdagangan untuk suatu Bulan Kontrak berakhir pada akhir sesi Pasca Penutupan tanggal 15 bulan yang bersangkutan, jika tanggal 15 bukan merupakan hari perdagangan, maka perdagangan berakhir pada hari perdagangan sesudahnya.</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<p><strong>Harga</strong></p>\r\n</td>\r\n<td>\r\n<p>Rupiah per kilogram (termasuk PPN)</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<p><strong>Perubahan Harga Minimum</strong></p>\r\n</td>\r\n<td>\r\n<p>Rp 5,- /kg (termasuk PPN)</p>\r\n<p>Rp. 100.000,- per lot (termasuk PPN)</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<p><strong>Batas Perubahan Harga</strong></p>\r\n</td>\r\n<td>\r\n<p>Rp.150,- per kilogram diatas atau dibawah Harga Penyelesaian hari perdagangan sebelumnya. Batas perubahan harga ini tidak berlaku untuk Bulan Berjalan dan Bulan Terdekat, kalau Bulan Berjalan sudah tidak diperdagangkan lagi.</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<p><strong>Penyelesaian Akhir</strong></p>\r\n</td>\r\n<td>\r\n<p>Penyerahan DO Terdaftar dengan kualitas Standar Pasar</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<p><strong>Waktu Pemberitahuan Penyerahan</strong></p>\r\n</td>\r\n<td>\r\n<p>5 (lima) hari perdagangan terakhir. Kalau tanggal 15 itu bukan hari perdagangan maka hari perdagangan sesudahnya menjadi hari Pemberitahuan Penyerahan terakhir.</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<p><strong>Waktu Pemberitahuan Alokasi</strong></p>\r\n</td>\r\n<td>\r\n<p>Sebelum sesi pertama hari perdagangan pertama setelah hari pemberitahuan penyerahan</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<p><strong>Waktu Serah</strong></p>\r\n</td>\r\n<td>\r\n<p>Sebelum sesi pertama hari perdagangan kedua setelah dilakukan pemberitahuan penyerahan</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<p><strong>Mutu</strong></p>\r\n</td>\r\n<td>\r\n<p>Standard PASAR</p>\r\n<p>Free Fatty Acids (FFA) &lt; 0,15% AOCS Method Ca 5a-40</p>\r\n<p>Moisture &amp; Impurities &lt; 0,1% AOCS Method Ca 2b-38</p>\r\n<p>AOCS Method Ca 3a-46</p>\r\n<p>Iodine Value (WIJS) &gt; 56 AOCS Method Cd 1d-92</p>\r\n<p>Warna Merah (Lovibond 5,25 inci) &lt; 4 Red AOCS Method Cc 13b-45</p>\r\n<p>Slip Melt Point &lt; 24o C AOCS Method Cc 1-25</p>\r\n<p>Cloud Point 10,75o</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<p><strong>Tempat Penyerahan</strong></p>\r\n</td>\r\n<td>\r\n<p>Pilihan DO berada pada Penjual dengan batas maksimum 5 (lima) lot per penerbit DO Tangki Terdaftar per hari penyerahan</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<p><strong>Satuan Penyerahan</strong></p>\r\n</td>\r\n<td>\r\n<p>20 ton dengan toleransi + 2%</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<p><strong>Posisi Wajib Lapor</strong></p>\r\n</td>\r\n<td>\r\n<p>150 lot</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<p><strong>Batas Posisi</strong></p>\r\n</td>\r\n<td>\r\n<p>500 lot</p>\r\n</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n</div>', '2025-07-07 15:01:38', '2025-07-07 15:25:09');
+(1, 'jfx/07072025-mengenal-minyak-sawit-merah-dan-manfaatnya-bagi-tubuh-tingkatkan-kesehatan-otak.jpg', 'Kontrak Berjangka Olein (OLE)', 'kontrak-berjangka-olein-ole', 'Kontrak Berjangka Olein (OLE) adalah produk perdagangan berjangka berbasis komoditas minyak kelapa sawit olahan (RBD Olein) yang diperdagangkan di Bursa Berjangka Jakarta (JFX). Produk ini memberikan kesempatan kepada investor untuk memperoleh keuntungan dari pergerakan harga komoditas sekaligus berfungsi sebagai sarana lindung nilai (hedging) terhadap volatilitas harga pasar. Dengan tingkat likuiditas yang baik dan transparansi harga, Kontrak Berjangka Olein menjadi salah satu pilihan investasi menarik di sektor komoditas, khususnya bagi para pelaku pasar yang ingin memanfaatkan potensi pasar minyak sawit yang terus berkembang.', '<p><strong>Spesifikasi Kontrak Berjangka Olein</strong></p>\r\n<div align=\"center\">\r\n<p>&nbsp;</p>\r\n<table border=\"1\" cellspacing=\"0\" cellpadding=\"0\">\r\n<tbody>\r\n<tr>\r\n<td>\r\n<p><strong>Kode Kontrak</strong></p>\r\n</td>\r\n<td>\r\n<p>OLE</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<p><strong>Dasar Kontrak</strong></p>\r\n</td>\r\n<td>\r\n<p>Olein dengan kualitas Standar Pasar</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<p><strong>Satuan Kontrak</strong></p>\r\n</td>\r\n<td>\r\n<p>20 ton (20.000 Kg)</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<p><strong>Bulan Kontrak</strong></p>\r\n</td>\r\n<td>\r\n<p>6 (enam) bulan berturut-turut, sehingga setiap hari perdagangan terdapat enam Bulan Kontrak</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<p><strong>Hari &amp; Jam Perdagangan</strong></p>\r\n</td>\r\n<td>\r\n<p>Setiap hari perdagangan</p>\r\n<p>Pukul 09.30 &ndash; 17.30 wib</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<p><strong>Pasca Penutupan</strong></p>\r\n</td>\r\n<td>\r\n<p>Sesi Pasca Penutupan dilaksanakan setiap hari perdagangan, yaitu mulai pukul 17.45 WIB sampai dengan 18.00 WIB.</p>\r\n<p>Amanat beli dan jual yang dimasukkan ke dalam JAFeTS adalah pada Harga Penyelesaian hari itu.</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<p><strong>Tukar Fisik dengan Berjangka</strong></p>\r\n</td>\r\n<td>\r\n<p>Pihak-pihak yang melakukan transaksi jual/beli Olein, PPO lainnya dan CPO diluar bursa dapat mendaftarkannya ke Bursa untuk ditukar dengan transaksi berjangka bagi kedua belah pihak.</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<p><strong>Hari Perdagangan Terakhir</strong></p>\r\n</td>\r\n<td>\r\n<p>Perdagangan untuk suatu Bulan Kontrak berakhir pada akhir sesi Pasca Penutupan tanggal 15 bulan yang bersangkutan, jika tanggal 15 bukan merupakan hari perdagangan, maka perdagangan berakhir pada hari perdagangan sesudahnya.</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<p><strong>Harga</strong></p>\r\n</td>\r\n<td>\r\n<p>Rupiah per kilogram (termasuk PPN)</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<p><strong>Perubahan Harga Minimum</strong></p>\r\n</td>\r\n<td>\r\n<p>Rp 5,- /kg (termasuk PPN)</p>\r\n<p>Rp. 100.000,- per lot (termasuk PPN)</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<p><strong>Batas Perubahan Harga</strong></p>\r\n</td>\r\n<td>\r\n<p>Rp.150,- per kilogram diatas atau dibawah Harga Penyelesaian hari perdagangan sebelumnya. Batas perubahan harga ini tidak berlaku untuk Bulan Berjalan dan Bulan Terdekat, kalau Bulan Berjalan sudah tidak diperdagangkan lagi.</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<p><strong>Penyelesaian Akhir</strong></p>\r\n</td>\r\n<td>\r\n<p>Penyerahan DO Terdaftar dengan kualitas Standar Pasar</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<p><strong>Waktu Pemberitahuan Penyerahan</strong></p>\r\n</td>\r\n<td>\r\n<p>5 (lima) hari perdagangan terakhir. Kalau tanggal 15 itu bukan hari perdagangan maka hari perdagangan sesudahnya menjadi hari Pemberitahuan Penyerahan terakhir.</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<p><strong>Waktu Pemberitahuan Alokasi</strong></p>\r\n</td>\r\n<td>\r\n<p>Sebelum sesi pertama hari perdagangan pertama setelah hari pemberitahuan penyerahan</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<p><strong>Waktu Serah</strong></p>\r\n</td>\r\n<td>\r\n<p>Sebelum sesi pertama hari perdagangan kedua setelah dilakukan pemberitahuan penyerahan</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<p><strong>Mutu</strong></p>\r\n</td>\r\n<td>\r\n<p>Standard PASAR</p>\r\n<p>Free Fatty Acids (FFA) &lt; 0,15% AOCS Method Ca 5a-40</p>\r\n<p>Moisture &amp; Impurities &lt; 0,1% AOCS Method Ca 2b-38</p>\r\n<p>AOCS Method Ca 3a-46</p>\r\n<p>Iodine Value (WIJS) &gt; 56 AOCS Method Cd 1d-92</p>\r\n<p>Warna Merah (Lovibond 5,25 inci) &lt; 4 Red AOCS Method Cc 13b-45</p>\r\n<p>Slip Melt Point &lt; 24o C AOCS Method Cc 1-25</p>\r\n<p>Cloud Point 10,75o</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<p><strong>Tempat Penyerahan</strong></p>\r\n</td>\r\n<td>\r\n<p>Pilihan DO berada pada Penjual dengan batas maksimum 5 (lima) lot per penerbit DO Tangki Terdaftar per hari penyerahan</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<p><strong>Satuan Penyerahan</strong></p>\r\n</td>\r\n<td>\r\n<p>20 ton dengan toleransi + 2%</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<p><strong>Posisi Wajib Lapor</strong></p>\r\n</td>\r\n<td>\r\n<p>150 lot</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<p><strong>Batas Posisi</strong></p>\r\n</td>\r\n<td>\r\n<p>500 lot</p>\r\n</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n</div>', '2025-07-07 15:01:38', '2025-07-24 06:17:19'),
+(3, 'jfx/30072025-27042025_122418-680e21f24188c-emas-3_169.jpeg', 'Kontrak Berjangka Emas (GOL)', 'kontrak-berjangka-emas-gol', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\r\n\r\nWhy do we use it?\r\nIt is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).\r\n\r\n\r\nWhere does it come from?\r\nContrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.\r\n\r\nThe standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from \"de Finibus Bonorum et Malorum\" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.\r\n\r\nWhere can I get some?\r\nThere are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn\'t anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.\r\n\r\n5\r\n	paragraphs\r\n	words\r\n	bytes\r\n	lists\r\n	Start with \'Lorem\r\nipsum dolor sit amet...\'', '<p>s</p>', '2025-07-30 07:56:25', '2025-07-30 08:24:27');
 
 -- --------------------------------------------------------
 
@@ -124,7 +150,7 @@ CREATE TABLE `jobs` (
   `reserved_at` int UNSIGNED DEFAULT NULL,
   `available_at` int UNSIGNED NOT NULL,
   `created_at` int UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -143,7 +169,7 @@ CREATE TABLE `job_batches` (
   `cancelled_at` int DEFAULT NULL,
   `created_at` int NOT NULL,
   `finished_at` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -157,7 +183,19 @@ CREATE TABLE `kategori_wakil_pialang` (
   `slug` varchar(50) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `kategori_wakil_pialang`
+--
+
+INSERT INTO `kategori_wakil_pialang` (`id`, `nama_kategori`, `slug`, `created_at`, `updated_at`) VALUES
+(1, 'Jakarta', 'jakarta', '2025-07-31 06:19:50', '2025-07-31 06:20:43'),
+(2, 'Yogyakarta', 'yogyakarta', '2025-07-31 06:38:30', '2025-07-31 06:38:30'),
+(3, 'Bali', 'bali', '2025-07-31 07:54:12', '2025-07-31 07:54:12'),
+(4, 'Makasar', 'makasar', '2025-07-31 07:54:38', '2025-07-31 07:54:38'),
+(5, 'Bandung', 'bandung', '2025-07-31 07:54:43', '2025-07-31 07:54:43'),
+(6, 'Semarang', 'semarang', '2025-07-31 07:54:54', '2025-07-31 07:54:54');
 
 -- --------------------------------------------------------
 
@@ -169,7 +207,7 @@ CREATE TABLE `migrations` (
   `id` int UNSIGNED NOT NULL,
   `migration` varchar(255) NOT NULL,
   `batch` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `migrations`
@@ -184,7 +222,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (15, '2025_04_27_052036_create_jfxes_table', 1),
 (16, '2025_04_27_114838_create_spas_table', 1),
 (17, '2025_04_28_053826_create_beritas_table', 1),
-(18, '2025_04_29_154000_create_profiles_table', 1);
+(18, '2025_04_29_154000_create_profiles_table', 1),
+(19, '2025_07_24_100019_create_banners_table', 2);
 
 -- --------------------------------------------------------
 
@@ -196,7 +235,7 @@ CREATE TABLE `password_reset_tokens` (
   `email` varchar(255) NOT NULL,
   `token` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -209,7 +248,7 @@ CREATE TABLE `profiles` (
   `content` text NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -224,7 +263,7 @@ CREATE TABLE `sessions` (
   `user_agent` text,
   `payload` longtext NOT NULL,
   `last_activity` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -241,7 +280,7 @@ CREATE TABLE `spas` (
   `specs` text NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `spas`
@@ -266,14 +305,15 @@ CREATE TABLE `users` (
   `remember_token` varchar(100) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `last_name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Faturrahman', 'Putra', 'faturrahman86.fr@gmail.com', NULL, '$2y$12$janu1iHakxjif.LH/EGQX.VYvNdEJfRDpCDhdo55IqPLGIHggzUci', NULL, NULL, '2025-07-07 14:02:03');
+(1, 'Faturrahman', 'Putra', 'faturrahman86.fr@gmail.com', NULL, '$2y$12$mpJzNXGRljkc6S2T5Y7D/ux.3BIM8/7bWGQvb8Hn.3HAgWJQv/Oiq', '6XLD9gXvNqkXgGsQ8FpczOvh8r5iJ3v5bbD5kXDYoXv2V97mwLB2CpxgdtEA', NULL, '2025-07-23 05:43:43'),
+(2, 'Ranca', 'Pramuditha', 'ranca632@gmail.com', NULL, '$2y$12$pbw4VguXUjZtHwsAeDiWUufVZAZ.YqbusL.ibI/bSG3oNi1kfIXYu', 'A56tbsisWa9D80wiLFqGyTISBWbDuL7JVd2n9Jn6IzO3wCF7IpcY7YU5qYqD', '2025-07-23 06:08:06', '2025-07-23 08:28:46');
 
 -- --------------------------------------------------------
 
@@ -289,11 +329,29 @@ CREATE TABLE `wakil_pialangs` (
   `category_id` bigint UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `wakil_pialangs`
+--
+
+INSERT INTO `wakil_pialangs` (`id`, `nama`, `nomor_izin`, `status`, `category_id`, `created_at`, `updated_at`) VALUES
+(1, 'Wahyu Setiawan', '136/UPTP/SI/10/2021', 'aktif', 1, '2025-07-31 06:21:18', '2025-08-20 06:16:05'),
+(2, 'Untari', '561/BAPPEBTI/SI/10/2008', 'aktif', 2, '2025-07-31 06:38:50', '2025-07-31 06:38:50'),
+(3, 'NG JOHNSON', '1365/BAPPEBTI/ SI/8/2007', 'aktif', 3, '2025-07-31 07:56:01', '2025-07-31 07:56:01'),
+(4, 'SRI MULYANTI', '0034/UPTP/SI/2/2020', 'aktif', 4, '2025-07-31 07:57:27', '2025-07-31 07:57:27'),
+(5, 'DIDI DHARMANSYAH', '200/UPTP/SI/9/2024', 'aktif', 5, '2025-07-31 07:58:10', '2025-07-31 07:58:10'),
+(6, 'UTAMI NINGSIH', '233/UPTP/SI/10/2020', 'aktif', 6, '2025-07-31 07:59:04', '2025-07-31 07:59:04');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `banners`
+--
+ALTER TABLE `banners`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `beritas`
@@ -397,10 +455,16 @@ ALTER TABLE `wakil_pialangs`
 --
 
 --
+-- AUTO_INCREMENT for table `banners`
+--
+ALTER TABLE `banners`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+
+--
 -- AUTO_INCREMENT for table `beritas`
 --
 ALTER TABLE `beritas`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -412,7 +476,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `jfxes`
 --
 ALTER TABLE `jfxes`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `jobs`
@@ -424,13 +488,13 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `kategori_wakil_pialang`
 --
 ALTER TABLE `kategori_wakil_pialang`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `profiles`
@@ -442,19 +506,19 @@ ALTER TABLE `profiles`
 -- AUTO_INCREMENT for table `spas`
 --
 ALTER TABLE `spas`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `wakil_pialangs`
 --
 ALTER TABLE `wakil_pialangs`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Constraints for dumped tables
