@@ -1,10 +1,10 @@
 @extends('layouts.auth')
 
 @section('main-content')
-<div class="container d-flex align-items-center" style="min-height: 100vh;">
-    <div class="row justify-content-center w-100">
-        <div class="col-lg-5 col-md-7">
-            <div class="bg-white rounded shadow-sm p-4">
+<div class="container d-flex align-items-center justify-content-center" style="min-height: 100vh; padding: 15px;">
+    <div class="row justify-content-center w-100 m-0">
+        <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
+            <div class="bg-white rounded shadow-sm p-4" style="width: 100%;">
                 <!-- Error Message Container - Fixed Height -->
                 <div class="error-container" style="min-height: 40px; margin-bottom: 0.5rem;">
                     @if ($errors->any())
