@@ -6,6 +6,8 @@ use App\Http\Controllers\Api\JfxController;
 use App\Http\Controllers\Api\KategoriWakilPialangController;
 use App\Http\Controllers\Api\SpaController;
 use App\Http\Controllers\Api\WakilPialangController;
+use App\Http\Controllers\Api\KarierController as ApiKarierController;
+use App\Http\Controllers\Api\CareerApplicationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -55,3 +57,17 @@ Route::get('/banners/{id}', [ApiBannerController::class, 'show']);
 Route::post('/banners', [ApiBannerController::class, 'store']);
 Route::put('/banners/{id}', [ApiBannerController::class, 'update']);
 Route::delete('/banners/{id}', [ApiBannerController::class, 'destroy']);
+
+// Karier API
+Route::prefix('karier')->group(function () {
+    Route::get('/', [ApiKarierController::class, 'index']);
+    Route::get('/slug/{slug}', [ApiKarierController::class, 'showBySlug']);
+    Route::post('/', [ApiKarierController::class, 'store']);
+    Route::get('/{id}', [ApiKarierController::class, 'show']);
+    Route::put('/{id}', [ApiKarierController::class, 'update']);
+    Route::delete('/{id}', [ApiKarierController::class, 'destroy']);
+    Route::get('/kota/{kota}', [ApiKarierController::class, 'getByKota']);
+});
+
+// Career Application
+Route::post('/career-application', [CareerApplicationController::class, 'store']);
