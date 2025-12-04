@@ -28,7 +28,6 @@ Route::put('/profile', [ProfileController::class, 'update'])->name('profile.upda
 // Rute untuk Karier
 Route::middleware(['auth'])->group(function () {
     Route::resource('karier', KarierController::class)->except(['show']);
-    Route::get('karier/{karier}/delete', [KarierController::class, 'destroy'])->name('karier.destroy');
 });
 
 // Produk JFX

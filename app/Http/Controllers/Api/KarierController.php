@@ -13,9 +13,11 @@ class KarierController extends Controller
      */
     public function index()
     {
-        $kariers = Karier::latest()->get(['id', 'nama_kota', 'posisi', 'slug', 'created_at']);
+        $kariers = Karier::latest()->get();
+        
         return response()->json([
             'success' => true,
+            'message' => 'Daftar data karier berhasil diambil',
             'data' => $kariers
         ]);
     }
@@ -40,10 +42,11 @@ class KarierController extends Controller
     {
         $kariers = Karier::where('nama_kota', 'like', '%' . $kota . '%')
             ->latest()
-            ->get(['id', 'nama_kota', 'posisi', 'slug', 'created_at']);
+            ->get();
             
         return response()->json([
             'success' => true,
+            'message' => 'Data karier berdasarkan kota berhasil diambil',
             'data' => $kariers
         ]);
     }

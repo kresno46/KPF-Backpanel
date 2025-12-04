@@ -36,35 +36,27 @@
             <table class="table table-striped table-hover mb-0" width="100%" cellspacing="0" id="karierTable">
                 <thead class="thead-dark">
                     <tr>
-                        <th class="text-center align-middle">No</th>
-                        <th class="text-center align-middle">Kota</th>
-                        <th class="text-center align-middle">Posisi</th>
-                        <th class="text-center align-middle">Email</th>
-                        <th class="text-center align-middle">Responsibilities</th>
-                        <th class="text-center align-middle">Qualifications</th>
-                        <th class="text-center align-middle">Aksi</th>
+                        <th class="text-center" style="width: 50px;">No</th>
+                        <th class="text-center">Kota</th>
+                        <th class="text-center">Posisi</th>
+                        <th class="text-center">Email</th>
+                        <th class="text-center" style="width: 120px;">Aksi</th>
                     </tr>
                 </thead>
-                    <tbody>
-                        @forelse($kariers as $karier)
-                            <tr>
-                                <td class="text-center align-middle">{{ $loop->iteration }}</td>
-                                <td class="align-middle">{{ $karier->nama_kota }}</td>
-                                <td class="align-middle">{{ $karier->posisi }}</td>
-                                <td class="align-middle">
-                                    {{ $karier->email ?? '-' }}
-                                </td>
-                                <td class="align-middle">
-                                    <div class="text-truncate" style="max-width: 200px;" data-toggle="tooltip" title="{{ strip_tags($karier->responsibilities) }}">
-                                        {!! Str::limit(strip_tags($karier->responsibilities), 50) !!}
-                                    </div>
-                                </td>
-                                <td class="align-middle">
-                                    <div class="text-truncate" style="max-width: 200px;" data-toggle="tooltip" title="{{ strip_tags($karier->qualifications) }}">
-                                        {!! Str::limit(strip_tags($karier->qualifications), 50) !!}
-                                    </div>
-                                </td>
-                                <td class="align-middle">
+                <tbody>
+                    @forelse($kariers as $karier)
+                        <tr>
+                            <td class="text-center align-middle">{{ $loop->iteration }}</td>
+                            <td class="align-middle text-truncate" style="max-width: 100px;" data-toggle="tooltip" title="{{ $karier->nama_kota }}">
+                                {{ $karier->nama_kota }}
+                            </td>
+                            <td class="align-middle text-truncate" style="max-width: 150px;" data-toggle="tooltip" title="{{ $karier->posisi }}">
+                                {{ $karier->posisi }}
+                            </td>
+                            <td class="align-middle text-truncate" style="max-width: 250px;" data-toggle="tooltip" title="{{ $karier->email ?? '-' }}">
+                                {{ $karier->email ?? '-' }}
+                            </td>
+                                <td class="text-center">
                                     <div class="d-flex justify-content-center">
                                         <a href="{{ route('karier.edit', $karier) }}" 
                                            class="btn btn-sm btn-primary mx-1" 
@@ -108,7 +100,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="7" class="text-center py-5">
+                                <td colspan="5" class="text-center py-5">
                                     <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
                                     <p class="mb-4">Tidak ada data lowongan kerja</p>
                                     <a href="{{ route('karier.create') }}" class="btn btn-primary">
@@ -132,6 +124,16 @@
 @endsection
 
 @push('styles')
+<style>
+    .table td {
+        vertical-align: middle !important;
+    }
+    .text-truncate {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+</style>
 <!-- DataTables -->
 <link rel="stylesheet" href="{{ asset('adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
 <link rel="stylesheet" href="{{ asset('adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">

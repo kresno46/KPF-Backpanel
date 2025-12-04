@@ -28,6 +28,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 // Berita API Routes
 Route::get('/berita', [BeritaController::class, 'index']);
+
+// Career Application Routes
+Route::post('/career-applications', [CareerApplicationController::class, 'store']);
 Route::get('/berita/{slug}', [BeritaController::class, 'show']);
 
 // JFX API Routes

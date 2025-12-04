@@ -2,25 +2,45 @@
 
 namespace App\Mail;
 
-use App\Models\Karier;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Storage;
 
 class CareerApplicationMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $karier;
+    public $details;
 
-    public function __construct(Karier $karier)
+    public function __construct($details)
     {
-        $this->karier = $karier;
+        $this->details = $details;
     }
 
     public function build()
     {
-        return $this->subject('Lowongan Kerja Baru: ' . $this->karier->posisi . ' - ' . $this->karier->nama_kota)
-                    ->view('emails.career-application');
+        $subject = 'Lamaran Baru: ' . 
+                 ($this->details['application']['name'] ?? 'Pelamar') . ' - ' . 
+                 ($this->details['karier']->posisi ?? 'Lowongan Kerja');
+
+        $mail = $this->subject($subject)
+                    ->view('emails.career-application', [
+                        'data' => $this->details
+                    ]);
+
+        // Attach the CV
+        if (!empty($this->details['cv'])) {
+            $cv = $this->details['cv'];
+            $mail->attach(
+                $cv['path'] ?? '',
+                [
+                    'as' => $cv['name'] ?? 'CV_Pelamar.pdf',
+                    'mime' => $cv['mime'] ?? 'application/pdf'
+                ]
+            );
+        }
+
+        return $mail;
     }
 }

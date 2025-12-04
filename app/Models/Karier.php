@@ -18,6 +18,14 @@ class Karier extends Model
         'email',
     ];
 
+    /**
+     * Get the career applications for the job.
+     */
+    public function applications()
+    {
+        return $this->hasMany(CareerApplication::class, 'karier_id');
+    }
+
     protected static function boot()
     {
         parent::boot();
