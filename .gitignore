@@ -1,5 +1,7 @@
 /node_modules
 /public/hot
+/public/img/berita
+/public/img/produk
 /public/storage
 /storage/*.key
 /vendor
