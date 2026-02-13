@@ -9,6 +9,7 @@ use App\Http\Controllers\SpaController;
 use App\Http\Controllers\WakilPialangController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\KarierController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +24,11 @@ Auth::routes([
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+
+// Rute untuk Karier
+Route::middleware(['auth'])->group(function () {
+    Route::resource('karier', KarierController::class)->except(['show']);
+});
 
 // Produk JFX
 Route::prefix('produk/jfx')->name('jfx.')->group(function () {

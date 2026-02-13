@@ -25,6 +25,8 @@ return [
         'http://localhost:8000',
         'http://127.0.0.1:8000',
         'https://kpf-officiall-ld8q.vercel.app',
+        'https://kpf-dev.kp-futures.com',
+        'https://kpf-admin.newsmaker.id',
     ],
 
     'allowed_origins_patterns' => [],
@@ -46,6 +48,6 @@ return [
 
     'max_age' => 60 * 60 * 24, // 24 jam
 
-    'supports_credentials' => false,
+    'supports_credentials' => true,
 
 ];
