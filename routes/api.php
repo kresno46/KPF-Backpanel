@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\SpaController;
 use App\Http\Controllers\Api\WakilPialangController;
 use App\Http\Controllers\Api\KarierController as ApiKarierController;
 use App\Http\Controllers\Api\CareerApplicationController;
+use App\Http\Controllers\Api\ProfileWebsiteController as ApiProfileWebsiteController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -74,3 +75,6 @@ Route::prefix('karier')->group(function () {
 
 // Career Application
 Route::post('/career-application', [CareerApplicationController::class, 'store']);
+
+// Website Information API
+Route::get('/website-information', [ApiProfileWebsiteController::class, 'index']);

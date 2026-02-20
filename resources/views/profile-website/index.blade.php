@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('namaPage', 'Profile Website')
+@section('namaPage', 'Informasi Website')
 
 @section('main-content')
 @if(session('success'))
@@ -12,178 +12,99 @@
 </div>
 @endif
 
-{{-- Card Konten --}}
-<div id="cardContent" class="card shadow mb-4">
-    <div class="card-header py-3 d-flex justify-content-between align-items-center">
-        <h5 class="m-0 font-weight-bold text-primary">Konten Profil</h5>
-        @if($profile && $profile->content)
-        <div class="d-flex gap-2" id="actionButtons">
-            <button class="btn btn-primary mr-2" id="toggleFormButton">Edit Konten</button>
-            <button class="btn btn-danger" data-toggle="modal" data-target="#confirmDeleteModal">Hapus
-                Konten</button>
-        </div>
-        @else
-        <div id="actionButtons">
-            <button class="btn btn-primary" id="toggleFormButton">Tambah Konten</button>
-        </div>
-        @endif
-    </div>
-    <div class="card-body">
-        <div id="profileContent">
-            @if($profile && $profile->content)
-            <div>{!! $profile->content !!}</div>
-            @else
-            <p>Tidak ada konten profil. Silakan tambah konten baru.</p>
-            @endif
-        </div>
-    </div>
+@if($errors->any())
+<div class="alert alert-danger border-left-danger" role="alert">
+    <ul class="mb-0 pl-3">
+        @foreach($errors->all() as $error)
+        <li>{{ $error }}</li>
+        @endforeach
+    </ul>
 </div>
+@endif
 
-{{-- Card Form --}}
-<div id="cardForm" class="card shadow mb-4" style="display: none;">
-    <div class="card-header py-3 d-flex justify-content-between align-items-center">
-        <h5 class="m-0 font-weight-bold text-primary">
-            <span>
-                @if($profile && $profile->content)
-                Edit
-                @else
-                Tambah
-                @endif
-            </span>
-            <span>Konten Profil</span>
-        </h5>
-    </div>
-    <div class="card-body">
-        <form id="profileForm" action="{{ route('profileWeb.storeOrUpdate') }}" method="POST">
-            @csrf
-            @method('PUT')
-            <div class="form-group">
-                <label for="content">Konten Profil</label>
-                <textarea name="content" id="contentForm"
-                    class="form-control">{{ old('content', $profile->content ?? '') }}</textarea>
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h5 class="m-0 font-weight-bold text-primary">Form Informasi Website</h5>
             </div>
-            <div class="d-flex justify-content-between">
-                <button type="button" class="btn btn-secondary" id="cancelButton">Batal</button>
-                <button type="button" class="btn btn-primary" id="saveButton">
-                    {{ $profile ? 'Simpan Perubahan' : 'Tambah Konten' }}
-                </button>
-            </div>
-        </form>
-    </div>
-</div>
-
-{{-- Modal Konfirmasi Edit --}}
-<div class="modal fade" id="confirmEditModal" tabindex="-1" role="dialog" aria-labelledby="confirmEditModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Konfirmasi</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Tutup">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                Apakah Anda yakin ingin mengubah atau menambahkan konten profil?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                <button type="button" class="btn btn-primary" id="confirmEditBtn">Ya, Lanjutkan</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-{{-- Modal Konfirmasi Simpan --}}
-<div class="modal fade" id="confirmSaveModal" tabindex="-1" role="dialog" aria-labelledby="confirmSaveModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Konfirmasi Simpan</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Tutup">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                Apakah Anda yakin ingin menyimpan perubahan pada konten profil?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                <button type="button" class="btn btn-success" id="confirmSaveBtn">Ya, Simpan</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-{{-- Modal Konfirmasi Hapus --}}
-@if($profile && $profile->id)
-<div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Konfirmasi Hapus</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Tutup">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                Apakah Anda yakin ingin menghapus konten profil ini? Tindakan ini tidak dapat dibatalkan.
-            </div>
-            <div class="modal-footer">
-                <form id="deleteProfileForm" action="{{ route('profileWeb.destroy', $profile->id) }}" method="POST">
+            <div class="card-body">
+                <form action="{{ route('profileWeb.storeOrUpdate') }}" method="POST">
                     @csrf
-                    @method('DELETE')
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-danger">Ya, Hapus</button>
+                    @method('PUT')
+
+                    <div class="form-group">
+                        <label for="site_name">Nama Website <span class="text-danger">*</span></label>
+                        <input type="text" name="site_name" id="site_name" class="form-control"
+                            value="{{ old('site_name', $profile->site_name ?? '') }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Deskripsi</label>
+                        <textarea name="description" id="description" rows="4" class="form-control">{{ old('description', $profile->description ?? '') }}</textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="address">Alamat</label>
+                        <textarea name="address" id="address" rows="3" class="form-control">{{ old('address', $profile->address ?? '') }}</textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="map_link">Link Map</label>
+                        <input type="url" name="map_link" id="map_link" class="form-control"
+                            value="{{ old('map_link', $profile->map_link ?? '') }}"
+                            placeholder="https://maps.google.com/...">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="complaint_link">Link Pengaduan</label>
+                        <input type="url" name="complaint_link" id="complaint_link" class="form-control"
+                            value="{{ old('complaint_link', $profile->complaint_link ?? '') }}"
+                            placeholder="https://...">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Telepon</label>
+                        <input type="text" name="phone" id="phone" class="form-control"
+                            value="{{ old('phone', $profile->phone ?? '') }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fax">Fax</label>
+                        <input type="text" name="fax" id="fax" class="form-control"
+                            value="{{ old('fax', $profile->fax ?? '') }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" name="email" id="email" class="form-control"
+                            value="{{ old('email', $profile->email ?? '') }}">
+                    </div>
+
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-primary">Simpan Informasi</button>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
+
+    <div class="col-lg-4">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h5 class="m-0 font-weight-bold text-primary">Ringkasan</h5>
+            </div>
+            <div class="card-body">
+                <p class="mb-2"><strong>Nama Website:</strong><br>{{ $profile->site_name ?? '-' }}</p>
+                <p class="mb-2"><strong>Deskripsi:</strong><br>{{ $profile->description ?? '-' }}</p>
+                <p class="mb-2"><strong>Alamat:</strong><br>{{ $profile->address ?? '-' }}</p>
+                <p class="mb-2"><strong>Link Map:</strong><br>{{ $profile->map_link ?? '-' }}</p>
+                <p class="mb-2"><strong>Link Pengaduan:</strong><br>{{ $profile->complaint_link ?? '-' }}</p>
+                <p class="mb-2"><strong>Telepon:</strong><br>{{ $profile->phone ?? '-' }}</p>
+                <p class="mb-2"><strong>Fax:</strong><br>{{ $profile->fax ?? '-' }}</p>
+                <p class="mb-0"><strong>Email:</strong><br>{{ $profile->email ?? '-' }}</p>
+            </div>
+        </div>
+    </div>
 </div>
-@endif
-
-{{-- TinyMCE & Script --}}
-<script src="https://cdn.tiny.cloud/1/zxbb8ss6iclrki0fopl5gcne91neckqc4e004atop3wf0mi2/tinymce/8/tinymce.min.js" referrerpolicy="origin" crossorigin="anonymous"></script>
-<script>
-    tinymce.init({
-        selector: '#contentForm',
-        height: 500,
-        plugins: 'print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
-        toolbar: 'undo redo | bold italic underline strikethrough | fontfamily fontsize blocks | alignleft aligncenter alignright alignjustify | outdent indent | numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen preview save print | insertfile image media template link anchor codesample | ltr rtl',
-        menubar: 'file edit view insert format tools table help',
-        toolbar_mode: 'sliding',
-        quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
-        image_advtab: true,
-        branding: false,
-        content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
-    });
-
-    document.getElementById('toggleFormButton').addEventListener('click', function () {
-        $('#confirmEditModal').modal('show');
-    });
-
-    document.getElementById('confirmEditBtn').addEventListener('click', function () {
-        $('#confirmEditModal').modal('hide');
-        document.getElementById('cardContent').style.display = 'none';
-        document.getElementById('cardForm').style.display = 'block';
-        document.getElementById('actionButtons').style.display = 'none';
-    });
-
-    document.getElementById('saveButton').addEventListener('click', function () {
-        $('#confirmSaveModal').modal('show');
-    });
-
-    document.getElementById('confirmSaveBtn').addEventListener('click', function () {
-        tinymce.triggerSave();
-        document.getElementById('profileForm').submit();
-    });
-
-    document.getElementById('cancelButton').addEventListener('click', function () {
-        document.getElementById('cardForm').style.display = 'none';
-        document.getElementById('cardContent').style.display = 'block';
-        document.getElementById('actionButtons').style.display = 'flex';
-    });
-</script>
 @endsection

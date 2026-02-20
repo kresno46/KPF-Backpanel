@@ -87,7 +87,7 @@ Route::prefix('wakil-pialang')->group(function () {
 });
 
 // Profile Website
-Route::prefix('website')->name('profileWeb.')->group(function () {
+Route::middleware(['auth'])->prefix('website')->name('profileWeb.')->group(function () {
     Route::get('/profile', [ProfileWebsiteController::class, 'index'])->name('index');
     Route::put('/update', [ProfileWebsiteController::class, 'storeOrUpdate'])->name('storeOrUpdate');
     Route::delete('/delete/{id}', [ProfileWebsiteController::class, 'destroy'])->name('destroy');

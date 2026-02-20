@@ -9,27 +9,44 @@ class ProfileWebsiteController extends Controller
 {
     public function index()
     {
-        $profile = Profile::first(); // hanya satu data yang diambil
+        $profile = Profile::first();
         return view('profile-website.index', compact('profile'));
     }
 
     public function storeOrUpdate(Request $request)
     {
         $request->validate([
-            'content' => 'required|string',
+            'site_name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'address' => 'nullable|string',
+            'map_link' => 'nullable|url|max:255',
+            'complaint_link' => 'nullable|url|max:255',
+            'phone' => 'nullable|string|max:50',
+            'fax' => 'nullable|string|max:50',
+            'email' => 'nullable|email|max:255',
+        ]);
+
+        $data = $request->only([
+            'site_name',
+            'description',
+            'address',
+            'map_link',
+            'complaint_link',
+            'phone',
+            'fax',
+            'email',
         ]);
 
         $profile = Profile::first();
 
         if ($profile) {
-            $profile->update(['content' => $request->content]);
-            $message = 'Profil berhasil diperbarui.';
+            $profile->update($data);
         } else {
-            Profile::create(['content' => $request->content]);
-            $message = 'Profil berhasil ditambahkan.';
+            $data['content'] = '';
+            Profile::create($data);
         }
 
-        return redirect()->back()->with('success', $message);
+        return redirect()->back()->with('success', 'Informasi website berhasil disimpan.');
     }
 
     public function destroy($id)
@@ -37,6 +54,6 @@ class ProfileWebsiteController extends Controller
         $profile = Profile::findOrFail($id);
         $profile->delete();
 
-        return redirect()->back()->with('success', 'Konten profil berhasil dihapus.');
+        return redirect()->back()->with('success', 'Informasi website berhasil dihapus.');
     }
 }

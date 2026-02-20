@@ -11,5 +11,15 @@ class Profile extends Model
 
     protected $table = 'profiles';
 
-    protected $fillable = ['content'];
+    protected $fillable = [
+        'content',
+        'site_name',
+        'description',
+        'address',
+        'map_link',
+        'complaint_link',
+        'phone',
+        'fax',
+        'email',
+    ];
 }
