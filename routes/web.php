@@ -6,6 +6,7 @@ use App\Http\Controllers\JfxController;
 use App\Http\Controllers\KategoriWakilPialangController;
 use App\Http\Controllers\ProfileWebsiteController;
 use App\Http\Controllers\SpaController;
+use App\Http\Controllers\TinyMceController;
 use App\Http\Controllers\WakilPialangController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HomeController;
@@ -29,6 +30,9 @@ Route::put('/profile', [ProfileController::class, 'update'])->name('profile.upda
 Route::middleware(['auth'])->group(function () {
     Route::resource('karier', KarierController::class)->except(['show']);
 });
+
+// TinyMCE Image Upload
+Route::middleware(['auth'])->post('/tinymce/upload', [TinyMceController::class, 'upload'])->name('tinymce.upload');
 
 // Produk JFX
 Route::prefix('produk/jfx')->name('jfx.')->group(function () {

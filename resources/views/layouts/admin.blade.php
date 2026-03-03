@@ -349,6 +349,52 @@
     <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
     <script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <script>
+        window.tinyMceImageUploadHandler = function (blobInfo, progress) {
+            return new Promise(function (resolve, reject) {
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', '{{ route('tinymce.upload') }}');
+                xhr.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
+
+                xhr.upload.onprogress = function (e) {
+                    if (e.lengthComputable && typeof progress === 'function') {
+                        progress((e.loaded / e.total) * 100);
+                    }
+                };
+
+                xhr.onload = function () {
+                    if (xhr.status < 200 || xhr.status >= 300) {
+                        reject('HTTP Error: ' + xhr.status);
+                        return;
+                    }
+
+                    var json;
+                    try {
+                        json = JSON.parse(xhr.responseText);
+                    } catch (e) {
+                        reject('Invalid JSON: ' + xhr.responseText);
+                        return;
+                    }
+
+                    if (!json || typeof json.location !== 'string') {
+                        reject('Invalid response');
+                        return;
+                    }
+
+                    resolve(json.location);
+                };
+
+                xhr.onerror = function () {
+                    reject('Image upload failed due to a XHR Transport error.');
+                };
+
+                var formData = new FormData();
+                formData.append('file', blobInfo.blob(), blobInfo.filename());
+                xhr.send(formData);
+            });
+        };
+    </script>
     
     <!-- Stack for scripts from child views -->
     @stack('scripts')

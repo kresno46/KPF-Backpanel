@@ -44,7 +44,7 @@ class BeritaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'judul' => 'required|string|max:100',
+            'judul' => 'required|string|max:150',
             'isi' => 'required|string',
             'kategori' => 'required|in:Info & Kegiatan,Pengumuman',
             'status' => 'required|in:draft,published',
@@ -103,7 +103,7 @@ class BeritaController extends Controller
         $berita = Berita::findOrFail($id);
 
         $request->validate([
-            'judul' => 'required|string|max:100',
+            'judul' => 'required|string|max:150',
             'isi' => 'required|string',
             'kategori' => 'required|in:Info & Kegiatan,Pengumuman',
             'status' => 'required|in:draft,published',
