@@ -38,10 +38,18 @@
         <a href="{{route('wakil.create', $kategori->slug)}}" class="btn btn-sm btn-primary">Tambah Wakil</a>
     </div>
     <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <div>
+                <h6 class="m-0 font-weight-bold text-primary">Urutkan data</h6>
+                <small class="text-muted">Drag & drop baris untuk atur urutan tampil.</small>
+            </div>
+            <span class="badge badge-info">Auto save</span>
+        </div>
         <div class="table-responsive rounded overflow-hidden m-0 border shadow">
             <table class="table table-bordered table-striped table-hover m-0">
                 <thead class="thead-dark">
                     <tr>
+                        <th class="align-middle text-center" style="width:40px;"><i class="fa fa-arrows-alt"></i></th>
                         <th class="align-middle text-center">No</th>
                         <th class="align-middle text-center">Nama</th>
                         <th class="align-middle text-center">Nomor Izin</th>
@@ -50,10 +58,13 @@
                         <th class="align-middle text-center">Aksi</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="sortable-body">
                     @forelse ($wakilPialang as $index => $item)
-                    <tr>
-                        <td class="align-middle text-center">{{ $index + 1 }}</td>
+                    <tr data-id="{{ $item->id }}">
+                        <td class="align-middle text-center drag-handle" style="cursor: move;">
+                            <i class="fa fa-grip-lines"></i>
+                        </td>
+                        <td class="align-middle text-center row-number">{{ $index + 1 }}</td>
                         <td class="align-middle">{{ $item->nama }}</td>
                         <td class="align-middle text-center">{{ $item->nomor_izin }}</td>
                         <td class="align-middle text-center">
@@ -123,3 +134,74 @@
 </div>
 
 @endsection
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const tbody = document.getElementById('sortable-body');
+        const rows = Array.from(tbody.querySelectorAll('tr'));
+        const csrf = '{{ csrf_token() }}';
+        const postUrl = '{{ route('wakil.reorder', $kategori->slug) }}';
+
+        rows.forEach(row => {
+            row.setAttribute('draggable', 'true');
+            row.addEventListener('dragstart', handleDragStart);
+            row.addEventListener('dragover', handleDragOver);
+            row.addEventListener('drop', handleDrop);
+            row.addEventListener('dragend', handleDragEnd);
+        });
+
+        let draggedRow = null;
+
+        function handleDragStart(e) {
+            draggedRow = this;
+            this.classList.add('table-active');
+            e.dataTransfer.effectAllowed = 'move';
+            e.dataTransfer.setData('text/plain', '');
+        }
+
+        function handleDragOver(e) {
+            e.preventDefault();
+            const target = e.target.closest('tr');
+            if (!target || target === draggedRow) return;
+            const rect = target.getBoundingClientRect();
+            const isAfter = (e.clientY - rect.top) > rect.height / 2;
+            tbody.insertBefore(draggedRow, isAfter ? target.nextSibling : target);
+        }
+
+        function handleDrop(e) {
+            e.preventDefault();
+        }
+
+        function handleDragEnd() {
+            this.classList.remove('table-active');
+            saveOrder();
+            renumberRows();
+        }
+
+        function getOrderIds() {
+            return Array.from(tbody.querySelectorAll('tr')).map(tr => tr.dataset.id);
+        }
+
+        function renumberRows() {
+            Array.from(tbody.querySelectorAll('tr')).forEach((tr, idx) => {
+                tr.querySelector('.row-number').textContent = idx + 1;
+            });
+        }
+
+        function saveOrder() {
+            fetch(postUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrf,
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: JSON.stringify({ order: getOrderIds() })
+            }).catch(() => {
+                // do nothing; user feedback not required here
+            });
+        }
+    });
+</script>
+@endpush

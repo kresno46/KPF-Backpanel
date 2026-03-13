@@ -86,6 +86,7 @@ Route::prefix('wakil-pialang')->group(function () {
         Route::get('/{slug}/tambah', [WakilPialangController::class, 'create'])->name('create');
         Route::put('/{slug}/{id}/update', [WakilPialangController::class, 'update'])->name('update');
         Route::get('/{slug}/{id}/edit', [WakilPialangController::class, 'edit'])->name('edit');
+        Route::post('/{slug}/reorder', [WakilPialangController::class, 'reorder'])->name('reorder');
         Route::delete('/{slug}/{id}/destroy', [WakilPialangController::class, 'destroy'])->name('destroy');
     });
 });

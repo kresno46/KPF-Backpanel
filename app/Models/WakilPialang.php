@@ -16,6 +16,7 @@ class WakilPialang extends Model
         'nomor_izin',
         'status',
         'category_id',
+        'sort_order',
     ];
 
     /**

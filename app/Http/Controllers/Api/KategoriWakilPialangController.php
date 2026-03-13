@@ -47,21 +47,26 @@ class KategoriWakilPialangController extends Controller
             
             // Log data asli dari database
             $dataAsli = $kategori->wakilPialang()
-                ->select(['id', 'nama', 'nomor_izin', 'status'])
+                ->select(['id', 'nama', 'nomor_izin', 'status', 'sort_order'])
+                ->orderBy('sort_order')
+                ->orderBy('id')
                 ->get()
                 ->toArray();
             \Log::info('Data asli dari database:', $dataAsli);
                 
             // Mapping data untuk response
             $wakilPialang = $kategori->wakilPialang()
-                ->select(['id', 'nama', 'nomor_izin', 'status'])
+                ->select(['id', 'nama', 'nomor_izin', 'status', 'sort_order'])
+                ->orderBy('sort_order')
+                ->orderBy('id')
                 ->get()
                 ->map(function($item) {
                     return [
                         'id' => $item->id,
                         'name' => $item->nama,  // Pastikan ini sesuai dengan yang diharapkan frontend
                         'nomor_izin' => $item->nomor_izin,
-                        'status' => $item->status
+                        'status' => $item->status,
+                        'sort_order' => $item->sort_order,
                     ];
                 })
                 ->toArray();

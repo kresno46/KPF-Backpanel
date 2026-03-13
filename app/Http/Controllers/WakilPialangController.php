@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\KategoriWakilPialang;
 use App\Models\WakilPialang;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class WakilPialangController extends Controller
 {
@@ -13,15 +14,16 @@ class WakilPialangController extends Controller
         $this->middleware('auth');
     }
 
-    public function index($slug)
+    public function index(Request $request, $slug)
     {
         try {
             // Mendapatkan kategori berdasarkan slug atau akan gagal jika tidak ditemukan
             $kategori = KategoriWakilPialang::where('slug', $slug)->firstOrFail();
 
-            // Mengambil data Wakil Pialang berdasarkan kategori dan mengurutkan berdasarkan nama
+            // Mengambil data Wakil Pialang berdasarkan kategori dengan urutan dapat diatur manual
             $wakilPialang = WakilPialang::where('category_id', $kategori->id)
-                ->orderBy('nama', 'asc') // Urutkan berdasarkan nama secara ascending
+                ->orderBy('sort_order')
+                ->orderBy('id')
                 ->get();
 
             // Mengirimkan data ke view
@@ -57,12 +59,15 @@ class WakilPialangController extends Controller
                 'status' => 'required|in:aktif,non-aktif',
             ]);
 
+            $nextOrder = WakilPialang::where('category_id', $kategori->id)->max('sort_order') + 1;
+
             // Menyimpan data Wakil Pialang
             WakilPialang::create([
                 'nama' => $validated['nama'],
                 'nomor_izin' => $validated['nomor_izin'],
                 'status' => $validated['status'],
                 'category_id' => $kategori->id,
+                'sort_order' => $nextOrder,
             ]);
 
             return redirect()->route('wakil.index', $slug)->with('success', 'Wakil Pialang berhasil ditambahkan.');
@@ -112,6 +117,27 @@ class WakilPialangController extends Controller
             // Jika kategori atau wakil pialang tidak ditemukan, arahkan ke halaman kategori dengan pesan error
             return redirect()->route('wakil.index', $slug)->with('error', 'Data tidak ditemukan.');
         }
+    }
+
+    public function reorder(Request $request, $slug)
+    {
+        $request->validate([
+            'order'   => 'required|array',
+            'order.*' => 'integer',
+        ]);
+
+        $kategori = KategoriWakilPialang::where('slug', $slug)->firstOrFail();
+        $ids = $request->order;
+
+        DB::transaction(function () use ($ids, $kategori) {
+            foreach ($ids as $index => $id) {
+                WakilPialang::where('id', $id)
+                    ->where('category_id', $kategori->id)
+                    ->update(['sort_order' => $index + 1]);
+            }
+        });
+
+        return response()->json(['success' => true]);
     }
 
     public function destroy($slug, $id)
